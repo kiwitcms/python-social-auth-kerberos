@@ -15,9 +15,14 @@ enable passwordless authentication inside a Django app or any other application
 that supports Python Social Auth. This is a pure Python implementation which doesn't
 depend on Apache ``mod_auth_kerb``.
 
-First
+To install::
+
+    pip install social-auth-kerberos
+
+
+Then
 `configure PSA <https://python-social-auth.readthedocs.io/en/latest/configuration/index.html>`_
-and then the following settings::
+and add the following settings::
 
 
     AUTHENTICATION_BACKENDS = [

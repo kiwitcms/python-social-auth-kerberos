@@ -1,50 +1,43 @@
-Kerberos authentication backend for Kiwi TCMS
-=============================================
+Kerberos authentication backend for Python Social Auth
+======================================================
 
-.. image:: https://travis-ci.org/kiwitcms/kiwitcms-auth-kerberos.svg?branch=master
-    :target: https://travis-ci.org/kiwitcms/kiwitcms-auth-kerberos
+.. image:: https://travis-ci.org/kiwitcms/python-social-auth-kerberos.svg?branch=master
+    :target: https://travis-ci.org/kiwitcms/python-social-auth-kerberos
 
-.. image:: https://coveralls.io/repos/github/kiwitcms/kiwitcms-auth-kerberos/badge.svg?branch=master
-   :target: https://coveralls.io/github/kiwitcms/kiwitcms-auth-kerberos?branch=master
+.. image:: https://coveralls.io/repos/github/kiwitcms/python-social-auth-kerberos/badge.svg?branch=master
+   :target: https://coveralls.io/github/kiwitcms/python-social-auth-kerberos?branch=master
 
 Introduction
 ------------
 
-TODO:
+This package provides Kerberos backend for Python Social Auth. It can be used to
+enable passwordless authentication inside a Django app or any other application
+that supports Python Social Auth. This is a pure Python implementation which doesn't
+depend on Apache ``mod_auth_kerb``.
 
-- package this backend and publish to PyPI
-- enable testing
-- why there are 2 classes for kerberos backend? which one if the real deal
-  maybe 'tcms.auth.kerberos.ModAuthKerbBackend' ????
-- check-out https://github.com/kiwitcms/Kiwi/issues/240
+First
+`configure PSA <https://python-social-auth.readthedocs.io/en/latest/configuration/index.html>`_
+and then the following settings::
 
 
-This package provides passwordless authentication for Kiwi TCMS via Kerberos.
-This is turned off by default because most organizations do not use it. To enable
-configure the following settings::
-
-    MIDDLEWARE += [
-        'django.contrib.auth.middleware.RemoteUserMiddleware',
+    AUTHENTICATION_BACKENDS = [
+        'social_auth_kerberos.backend.KerberosAuth',
+        'django.contrib.auth.backends.ModelBackend',
     ]
+    
+    SOCIAL_AUTH_KRB5_KEYTAB = '/tmp/your-application.keytab'
 
-    AUTHENTICATION_BACKENDS += [
-        'tcms.auth.kerberos.ModAuthKerbBackend',
-    ]
-
-    KRB5_REALM='YOUR-DOMAIN.COM'
-
-
-Also modify Kiwi TCMS ``Dockerfile`` to include the following lines::
-
-    RUN yum -y install krb5-devel mod_auth_kerb
-    RUN pip install kerberos
-    COPY ./auth_kerb.conf /etc/httpd/conf.d/
-
-Where ``auth_kerb.conf`` is your Kerberos configuration file for Apache!
-More information about it can be found
-`here <https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Server/2/html/HTTP_Connectors_Load_Balancing_Guide/ch10s02s03.html>`_.
+For more information about Kerberos see:
+* `How to configure Firefox for kerberos <https://people.redhat.com/mikeb/negotiate/>`_
+* `How to configure kerberos on Fedora <https://fedoraproject.org/wiki/Kerberos_KDC_Quickstart_Guide>`_
+* `How to generate a keytab file
+  <https://docs.tibco.com/pub/spotfire_server/7.6.1/doc/html/tsas_admin_help/GUID-27726F6E-569C-4704-8433-5CCC0232EC79.html>`_
 
 .. warning::
 
-    Unless Kerberos authentication is configured and fully-operational the
-    XML-RPC method `Auth.login_krbv()` will not work!
+    USE AT YOUR OWN RISK!
+    
+    This module has been tested manually with Kiwi TCMS. Automated tests
+    do not exist because we can't quite figure out how to use
+    `gssapi-console <https://github.com/pythongssapi/gssapi-console>`_ as part of
+    unit tests! If you do figure it out a pull request will be greatly appreciated!

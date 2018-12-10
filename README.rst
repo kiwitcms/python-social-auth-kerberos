@@ -28,9 +28,10 @@ and then the following settings::
     SOCIAL_AUTH_KRB5_KEYTAB = '/tmp/your-application.keytab'
 
 For more information about Kerberos see:
-* `How to configure Firefox for kerberos <https://people.redhat.com/mikeb/negotiate/>`_
-* `How to configure kerberos on Fedora <https://fedoraproject.org/wiki/Kerberos_KDC_Quickstart_Guide>`_
-* `How to generate a keytab file
+
+- `How to configure Firefox for kerberos <https://people.redhat.com/mikeb/negotiate/>`_
+- `How to configure kerberos on Fedora <https://fedoraproject.org/wiki/Kerberos_KDC_Quickstart_Guide>`_
+- `How to generate a keytab file
   <https://docs.tibco.com/pub/spotfire_server/7.6.1/doc/html/tsas_admin_help/GUID-27726F6E-569C-4704-8433-5CCC0232EC79.html>`_
 
 .. warning::

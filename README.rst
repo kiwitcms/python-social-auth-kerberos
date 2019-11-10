@@ -47,3 +47,19 @@ For more information about Kerberos see:
     do not exist because we can't quite figure out how to use
     `gssapi-console <https://github.com/pythongssapi/gssapi-console>`_ as part of
     unit tests! If you do figure it out a pull request will be greatly appreciated!
+
+
+Changelog
+---------
+
+
+v0.2.2 (10 Nov 2019)
+~~~~~~~~~~~~~~~~~~~~
+
+- Pin license version to GPLv2 for Tidelift
+
+
+v0.2.1 (10 Dec 2018)
+~~~~~~~~~~~~~~~~~~~~
+
+- Initial release

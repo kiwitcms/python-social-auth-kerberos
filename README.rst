@@ -7,6 +7,18 @@ Kerberos authentication backend for Python Social Auth
 .. image:: https://coveralls.io/repos/github/kiwitcms/python-social-auth-kerberos/badge.svg?branch=master
    :target: https://coveralls.io/github/kiwitcms/python-social-auth-kerberos?branch=master
 
+.. image:: https://tidelift.com/badges/package/pypi/social-auth-kerberos
+    :target: https://tidelift.com/subscription/pkg/pypi-social-auth-kerberos?utm_source=pypi-social-auth-kerberos&utm_medium=github&utm_campaign=readme
+    :alt: Tidelift
+
+.. image:: https://opencollective.com/kiwitcms/tiers/sponsor/badge.svg?label=sponsors&color=brightgreen
+   :target: https://opencollective.com/kiwitcms#contributors
+   :alt: Become a sponsor
+
+.. image:: https://img.shields.io/twitter/follow/KiwiTCMS.svg
+    :target: https://twitter.com/KiwiTCMS
+    :alt: Kiwi TCMS on Twitter
+
 Introduction
 ------------
 

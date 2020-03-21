@@ -27,8 +27,10 @@ class KerberosAuth(BaseAuth):
             return response
 
         token = self.strategy.request.META['HTTP_AUTHORIZATION']
-        token = token.split('Negotiate')[-1].strip()
-        token = base64.b64decode(token)
+        negotiate, token = token.split(' ')
+        if negotiate.lower() != 'negotiate':
+            raise AuthException(self.name, 'Negotiate scheme not found')
+        token = base64.b64decode(token.strip())
 
         context_id = self.strategy.request.session.get('_krb5', None)
         if self._krb5[context_id] is None:

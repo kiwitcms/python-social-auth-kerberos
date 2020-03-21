@@ -65,6 +65,16 @@ Changelog
 ---------
 
 
+v0.2.3 (22 Mar 2020)
+~~~~~~~~~~~~~~~~~~~~
+
+- Keep a reference to current user before checking anything else.
+  Resolves a crash for clients which know that the server is
+  Kerberos enabled and directly send the Authorization header
+- Be more tolerant to authorization request headers which don't
+  match RFC-4459, section 4.2
+
+
 v0.2.2 (10 Nov 2019)
 ~~~~~~~~~~~~~~~~~~~~
 

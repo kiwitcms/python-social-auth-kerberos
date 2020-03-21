@@ -14,14 +14,16 @@ class KerberosAuth(BaseAuth):
         response.status_code = 401
         response['WWW-Authenticate'] = 'Negotiate'
 
-        # browser didn't send negotiation token
-        if 'HTTP_AUTHORIZATION' not in self.strategy.request.META:
-            # this will keep a reference to the current user b/c
-            # kerberos auth is a stateful protocol while HTTP is stateless.
+        # keep a reference to the current user b/c
+        # kerberos is a stateful protocol while HTTP is stateless
+        if self.strategy.request.session.get('_krb5', None) is None:
             context_id = "%d@%d" % (hash(repr(self.strategy.request.META)),
                                     id(self.strategy.request))
             self.strategy.request.session['_krb5'] = context_id
             self._krb5[context_id] = None
+
+        # if browser didn't send negotiation token ask it to send one
+        if 'HTTP_AUTHORIZATION' not in self.strategy.request.META:
             return response
 
         token = self.strategy.request.META['HTTP_AUTHORIZATION']

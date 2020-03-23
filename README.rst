@@ -1,8 +1,8 @@
 Kerberos authentication backend for Python Social Auth
 ======================================================
 
-.. image:: https://travis-ci.org/kiwitcms/python-social-auth-kerberos.svg?branch=master
-    :target: https://travis-ci.org/kiwitcms/python-social-auth-kerberos
+.. image:: https://github.com/kiwitcms/python-social-auth-kerberos/workflows/integration%20test/badge.svg
+    :target: https://github.com/kiwitcms/python-social-auth-kerberos/actions
 
 .. image:: https://coveralls.io/repos/github/kiwitcms/python-social-auth-kerberos/badge.svg?branch=master
    :target: https://coveralls.io/github/kiwitcms/python-social-auth-kerberos?branch=master
@@ -50,15 +50,6 @@ For more information about Kerberos see:
 - `How to configure kerberos on Fedora <https://fedoraproject.org/wiki/Kerberos_KDC_Quickstart_Guide>`_
 - `How to generate a keytab file
   <https://docs.tibco.com/pub/spotfire_server/7.6.1/doc/html/tsas_admin_help/GUID-27726F6E-569C-4704-8433-5CCC0232EC79.html>`_
-
-.. warning::
-
-    USE AT YOUR OWN RISK!
-    
-    This module has been tested manually with Kiwi TCMS. Automated tests
-    do not exist because we can't quite figure out how to use
-    `gssapi-console <https://github.com/pythongssapi/gssapi-console>`_ as part of
-    unit tests! If you do figure it out a pull request will be greatly appreciated!
 
 
 Changelog

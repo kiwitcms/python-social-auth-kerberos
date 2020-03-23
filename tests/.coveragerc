@@ -1,0 +1,10 @@
+[run]
+branch = True
+parallel = True
+data_file = /coverage/.coverage
+source = social_auth_kerberos
+
+[paths]
+source =
+    ./social_auth_kerberos/
+    /venv/lib*/python*/site-packages/social_auth_kerberos/

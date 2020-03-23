@@ -10,8 +10,6 @@ run-services:
 	docker cp ./application.keytab web_kiwitcms_org:/Kiwi/application.keytab
 	rm ./application.keytab
 	docker exec -u 0 -i web_kiwitcms_org /bin/bash -c 'chown 1001:root /Kiwi/application.keytab'
-	docker exec -i web_kiwitcms_org /Kiwi/manage.py migrate
-	docker exec -i web_kiwitcms_org /Kiwi/manage.py createsuperuser --noinput --username super-root --email root@example.com
 	@echo "=== add the following to client's /etc/hosts & /etc/krb5.conf ==="
 	@echo "--- web.kiwitcms.org ---"
 	@docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' web_kiwitcms_org

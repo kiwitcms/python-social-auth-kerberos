@@ -11,4 +11,8 @@ services:
         image: kiwitcms/with-kerberos
         restart: always
         volumes:
+            - web_kiwitcms_org_coverage:/coverage
             - ./social_auth_kerberos/:/venv/lib64/python3.6/site-packages/social_auth_kerberos/:z,ro
+
+volumes:
+    web_kiwitcms_org_coverage:

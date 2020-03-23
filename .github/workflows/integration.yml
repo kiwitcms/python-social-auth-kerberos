@@ -63,3 +63,20 @@ jobs:
       run: |
         make verify-web-login
         klist
+
+    - name: Collect & report coverage
+      run: |
+        # stop triggers the atexit handler and saves coverage data
+        docker-compose stop web_kiwitcms_org
+
+        # combine & copy out the results
+        docker-compose start web_kiwitcms_org
+        docker exec -i web_kiwitcms_org /bin/bash -c "cd /coverage; coverage combine"
+        docker cp web_kiwitcms_org:/coverage/.coverage .coverage.container
+
+        # combining again will map to local sources paths
+        pip install coveralls
+        sed -i "s/data_file.*//" .coveragerc
+        coverage combine
+
+        COVERALLS_REPO_TOKEN=Oc0oWQC2KKHUbvZD6Ui7W2Ury7LsYu4ho coveralls

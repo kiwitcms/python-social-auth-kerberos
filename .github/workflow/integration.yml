@@ -1,0 +1,62 @@
+name: integration test
+
+on:
+  pull_request:
+    branches:
+      - "*"
+  push:
+    branches:
+      - "*"
+
+jobs:
+  test-on-linux:
+    name: Py${{ matrix.python-version }} @ ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # note: always use the -latest OS variants b/c if conditions
+        # match them as literals
+        os: [ubuntu-latest]
+        python-version: [3.6]
+
+    steps:
+
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Verify curl with Kerberos
+      run: |
+        make verify-curl-with-kerberos
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Build & start services
+      run: |
+        make build-services
+        make run-services
+
+    - name: Install & configure Kerberos client
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        KRB5_ADDR=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' krb5_kiwitcms_org`
+
+        sudo apt-get -y install krb5-user
+        sudo cp ./tests/krb5/krb5.conf /etc/
+        sudo sed -i "s/localhost\./$KRB5_ADDR/" /etc/krb5.conf
+
+        # this directory is missing and krb5.conf wants to include it
+        sudo mkdir /etc/krb5.conf.d/
+
+    - name: Obtain valid Kerberos ticket
+      run: |
+        echo changeme | kinit travis@KIWITCMS.ORG
+        klist
+
+    - name: Verify web login with Kerberos
+      run: |
+        make verify-web-login
+        klist

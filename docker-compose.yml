@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+    krb5_kiwitcms_org:
+        container_name: krb5_kiwitcms_org
+        image: kiwitcms/kerberos
+        restart: always
+
+    web_kiwitcms_org:
+        container_name: web_kiwitcms_org
+        image: kiwitcms/with-kerberos
+        restart: always
+        volumes:
+            - ./social_auth_kerberos/:/venv/lib64/python3.6/site-packages/social_auth_kerberos/:z,ro

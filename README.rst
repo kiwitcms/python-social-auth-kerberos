@@ -19,22 +19,25 @@ Kerberos authentication backend for Python Social Auth
     :target: https://twitter.com/KiwiTCMS
     :alt: Kiwi TCMS on Twitter
 
-Introduction
-------------
 
 This package provides Kerberos backend for Python Social Auth. It can be used to
 enable passwordless authentication inside a Django app or any other application
 that supports Python Social Auth. This is a pure Python implementation which doesn't
 depend on Apache ``mod_auth_kerb``.
 
+Installation
+------------
+
 To install::
 
     pip install social-auth-kerberos
 
 
-Then
-`configure PSA <https://python-social-auth.readthedocs.io/en/latest/configuration/index.html>`_
-and add the following settings::
+Configuration
+-------------
+
+`Configure Python Social Auth <https://python-social-auth.readthedocs.io/en/latest/configuration/index.html>`_
+and then make sure you have the following settings enabled::
 
 
     AUTHENTICATION_BACKENDS = [
@@ -42,7 +45,38 @@ and add the following settings::
         'django.contrib.auth.backends.ModelBackend',
     ]
     
-    SOCIAL_AUTH_KRB5_KEYTAB = '/tmp/your-application.keytab'
+    SOCIAL_AUTH_KRB5_KEYTAB = '/Kiwi/your-application.keytab'
+
+**IMPORTANT:**
+
+The principal name for your Kiwi TCMS web service must be
+``HTTP/<fqdn.example.com>@REALM.EXAMPLE.COM`` where ``fqdn.example.com`` is
+the domain name of the Kiwi TCMS server and ``REALM.EXAMPLE.COM`` is the
+Kerberos realm that is used in your organization.
+
+``/Kiwi/your-application.keytab`` is the keytab file for your
+web app principal! If you install this inside a Docker container make sure
+to ``chown 1001:root``!
+
+
+Pipeline configuration
+----------------------
+
+Python Social Auth, and by extension this plugin, will create new user accounts
+upon first access of the web interface. In Kiwi TCMS users need to either be
+in the special group *Tester* or have sufficient permissions to add/edit/delete
+objects.
+
+You can automatically assign new accounts to the *Tester* group if
+you append ``social_auth_kerberos.pipeline.initiate_defaults`` to the end
+of the ``SOCIAL_AUTH_PIPELINE`` setting.
+
+**WARNING:** this is not done for you automatically because some administrators
+may want to employ different behaviour for newly registered accounts!
+
+
+Kerberos configuration
+----------------------
 
 For more information about Kerberos see:
 
@@ -50,6 +84,9 @@ For more information about Kerberos see:
 - `How to configure kerberos on Fedora <https://fedoraproject.org/wiki/Kerberos_KDC_Quickstart_Guide>`_
 - `How to generate a keytab file
   <https://docs.tibco.com/pub/spotfire_server/7.6.1/doc/html/tsas_admin_help/GUID-27726F6E-569C-4704-8433-5CCC0232EC79.html>`_
+
+or check out ``tests/Dockerfile.kerberos``.
+
 
 
 Changelog

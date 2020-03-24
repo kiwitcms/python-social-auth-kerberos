@@ -93,6 +93,16 @@ Changelog
 ---------
 
 
+v0.2.4 (24 Mar 2020)
+~~~~~~~~~~~~~~~~~~~~
+
+- Add ``social_auth_kerberos.pipeline`` with function to initialize
+  default permissions for newly created accounts. See section
+  *Pipeline configuration*
+- Update README with more information how to configure this plugin
+- Enable integration testing with Kerberos and coverage collection
+
+
 v0.2.3 (22 Mar 2020)
 ~~~~~~~~~~~~~~~~~~~~
 

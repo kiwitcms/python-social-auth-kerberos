@@ -32,6 +32,11 @@ To install::
 
     pip install social-auth-kerberos
 
+**WARNING:** you will need gcc, Python and kerberos devel packages to
+build the ``gssapi`` dependency because it doesn't provide binary packages. Try
+``dnf install gcc krb5-devel python3-devel`` (Red Hat/Fedora) or
+``apt-get install gcc libkrb5-dev libpython3-dev`` (Debian/Ubuntu).
+
 
 Configuration
 -------------

@@ -1,6 +1,6 @@
 # pylint: disable=missing-docstring
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 def get_long_description():

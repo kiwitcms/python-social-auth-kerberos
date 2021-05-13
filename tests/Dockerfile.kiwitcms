@@ -1,7 +1,7 @@
 FROM kiwitcms/kiwi
 
 USER 0
-RUN dnf -y --setopt=tsflags=nodocs install gcc krb5-devel python3-devel && \
+RUN dnf -y --setopt=tsflags=nodocs install gcc krb5-devel python38-devel && \
     dnf clean all && mkdir /coverage && chown 1001:0 /coverage
 USER 1001
 
@@ -9,13 +9,13 @@ RUN pip install --no-cache-dir -U kiwitcms && \
     pip install --no-cache-dir social-auth-app-django gssapi coverage gunicorn
 
 COPY /.coveragerc /Kiwi/.coveragerc
-COPY ./kiwitcms_kerberos/  /venv/lib64/python3.6/site-packages/kiwitcms_kerberos/
-COPY ./kiwitcms_kerberos/kerberos_settings.py /venv/lib64/python3.6/site-packages/tcms_settings_dir/
+COPY ./kiwitcms_kerberos/  /venv/lib64/python3.8/site-packages/kiwitcms_kerberos/
+COPY ./kiwitcms_kerberos/kerberos_settings.py /venv/lib64/python3.8/site-packages/tcms_settings_dir/
 
 # prepare DB during build b/c after turning on coverage this will be slow
 RUN /Kiwi/manage.py migrate && \
     /Kiwi/manage.py createsuperuser --noinput --username super-root --email root@example.com
 
-COPY ./sitecustomize.py /venv/lib/python3.6/site-packages/sitecustomize.py
+COPY ./sitecustomize.py /venv/lib/python3.8/site-packages/sitecustomize.py
 
 CMD ["gunicorn", "-b", ":8080", "-b", ":8443", "--keyfile", "/Kiwi/ssl/localhost.key", "--certfile", "/Kiwi/ssl/localhost.crt", "tcms.wsgi"]

@@ -6,7 +6,7 @@ RUN microdnf -y --nodocs install gcc krb5-devel python3-devel && \
 USER 1001
 
 RUN pip install --no-cache-dir -U kiwitcms && \
-    pip install --no-cache-dir social-auth-app-django gssapi coverage gunicorn
+    pip install --no-cache-dir social-auth-app-django gssapi coverage
 
 COPY /.coveragerc /Kiwi/.coveragerc
 COPY ./kiwitcms_kerberos/  /venv/lib64/python3.9/site-packages/kiwitcms_kerberos/
@@ -17,5 +17,3 @@ RUN /Kiwi/manage.py migrate && \
     /Kiwi/manage.py createsuperuser --noinput --username super-root --email root@example.com
 
 COPY ./sitecustomize.py /venv/lib/python3.9/site-packages/sitecustomize.py
-
-CMD ["gunicorn", "-b", ":8080", "-b", ":8443", "--keyfile", "/Kiwi/ssl/localhost.key", "--certfile", "/Kiwi/ssl/localhost.crt", "tcms.wsgi"]

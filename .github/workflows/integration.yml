@@ -64,6 +64,14 @@ jobs:
         make verify-web-login
         klist
 
+    - name: Upload logs
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: curl.log
+        path: /tmp/curl.log
+        if-no-files-found: ignore
+
     - name: Collect & report coverage
       run: |
         # stop triggers the atexit handler and saves coverage data

@@ -49,7 +49,7 @@ and then make sure you have the following settings enabled::
         'social_auth_kerberos.backend.KerberosAuth',
         'django.contrib.auth.backends.ModelBackend',
     ]
-    
+
     SOCIAL_AUTH_KRB5_KEYTAB = '/Kiwi/your-application.keytab'
 
 **IMPORTANT:**

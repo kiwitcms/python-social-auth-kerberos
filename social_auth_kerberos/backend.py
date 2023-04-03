@@ -10,6 +10,13 @@ class KerberosAuth(BaseAuth):
     name = "kerberos"
 
     def start(self):
+        print(
+            "*** DEBUG, start(), AT BEGINNING context_id=",
+            id(self),
+            self._krb5,
+            self.strategy.request.session,
+        )
+
         response = self.strategy.html("Authorization Required")
         response.status_code = 401
         response["WWW-Authenticate"] = "Negotiate"
@@ -23,9 +30,17 @@ class KerberosAuth(BaseAuth):
             )
             self.strategy.request.session["_krb5"] = context_id
             self._krb5[context_id] = None
+            print(
+                "*** DEBUG, start(), _krb5 is None, configure with context_id=",
+                context_id,
+                id(self),
+                self._krb5,
+                self.strategy.request.session,
+            )
 
         # if browser didn't send negotiation token ask it to send one
         if "HTTP_AUTHORIZATION" not in self.strategy.request.META:
+            print("*** DEBUG, start(), browser didn't send Authorization header.")
             return response
 
         token = self.strategy.request.META["HTTP_AUTHORIZATION"]
@@ -35,11 +50,34 @@ class KerberosAuth(BaseAuth):
         token = base64.b64decode(token.strip())
 
         context_id = self.strategy.request.session.get("_krb5", None)
+        print(
+            "*** DEBUG, start(), token parsed. context_id=",
+            context_id,
+            id(self),
+            self._krb5,
+            self.strategy.request.session,
+        )
+
         if self._krb5[context_id] is None:
+            print(
+                "*** DEBUG, start(), No SecCtx found context_id=",
+                context_id,
+                id(self),
+                self._krb5,
+                self.strategy.request.session,
+            )
+
             keytab_path = self.strategy.setting("SOCIAL_AUTH_KRB5_KEYTAB")
             creds = gssapi.Credentials(usage="accept", store={"keytab": keytab_path})
             self._krb5[context_id] = gssapi.SecurityContext(creds=creds)
 
+        print(
+            "*** DEBUG, start(), Security context configured. context_id=",
+            context_id,
+            id(self),
+            self._krb5,
+            self.strategy.request.session,
+        )
         server_token = self._krb5[context_id].step(token)
         response = self.strategy.redirect(self.redirect_uri)
 
@@ -47,12 +85,27 @@ class KerberosAuth(BaseAuth):
             server_token_hex = base64.b64encode(server_token).decode()
             response["WWW-Authenticate"] = "Negotiate %s" % server_token_hex
 
+        print(
+            "*** DEBUG, start(), BEFORE return response. context_id=",
+            context_id,
+            id(self),
+            self._krb5,
+            self.strategy.request.session,
+        )
         return response
 
     def auth_complete(self, *args, **kwargs):
         """Completes loging process, must return user instance"""
         try:
             context_id = self.strategy.request.session.get("_krb5", None)
+
+            print(
+                "*** DEBUG, auth_complete(), context_id=",
+                context_id,
+                id(self),
+                self._krb5,
+                self.strategy.request.session,
+            )
 
             if context_id not in self._krb5:
                 raise AuthException(self.name, "Authentication failed. context_id not found!")

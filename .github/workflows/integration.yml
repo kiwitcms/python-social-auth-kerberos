@@ -78,4 +78,3 @@ jobs:
             /tmp/curl.log
             /tmp/docker-compose-logs.txt
         if-no-files-found: ignore
-

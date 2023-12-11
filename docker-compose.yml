@@ -12,7 +12,7 @@ services:
         restart: always
         volumes:
             - web_kiwitcms_org_coverage:/coverage
-            - ./social_auth_kerberos/:/venv/lib64/python3.9/site-packages/social_auth_kerberos/:z,ro
+            - ./social_auth_kerberos/:/venv/lib64/python3.11/site-packages/social_auth_kerberos/:z,ro
 
 volumes:
     web_kiwitcms_org_coverage:

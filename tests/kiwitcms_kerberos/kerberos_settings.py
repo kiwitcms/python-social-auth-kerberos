@@ -2,7 +2,9 @@ DEBUG = True
 
 ROOT_URLCONF = "kiwitcms_kerberos.urls"
 
-DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "/tmp/kiwi.db.sqlite"}}
+DATABASES = {
+    "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "/tmp/kiwi.db.sqlite"}
+}
 
 if "kiwitcms_kerberos" not in INSTALLED_APPS:  # noqa: F821
     INSTALLED_APPS.append("kiwitcms_kerberos")  # noqa: F821

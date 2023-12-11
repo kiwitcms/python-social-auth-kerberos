@@ -55,7 +55,9 @@ class KerberosAuth(BaseAuth):
             context_id = self.strategy.request.session.get("_krb5", None)
 
             if context_id not in self._krb5:
-                raise AuthException(self.name, "Authentication failed. context_id not found!")
+                raise AuthException(
+                    self.name, "Authentication failed. context_id not found!"
+                )
 
             if not self._krb5[context_id].complete:
                 raise AuthException(self.name, "Authentication failed")

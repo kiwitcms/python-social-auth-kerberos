@@ -64,13 +64,19 @@ jobs:
         make verify-web-login
         klist
 
+    - name: Save docker logs
+      run: |
+        docker-compose logs > docker-compose.log
+
     - name: Upload logs
       uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: curl.log
-        path: /tmp/curl.log
-        if-no-files-found: ignore
+        name: logs
+        if-no-files-found: warn
+        path: |
+            /tmp/curl.log
+            ./docker-compose.log
 
     - name: Collect & report coverage
       run: |

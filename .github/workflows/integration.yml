@@ -80,11 +80,10 @@ jobs:
 
     - name: Collect & report coverage
       run: |
-        # stop triggers the atexit handler and saves coverage data
-        docker-compose stop web_kiwitcms_org
+        # trigger coverage.py's atexit handler and save coverage data
+        docker exec -i web_kiwitcms_org /bin/bash -c "killall -TERM uwsgi"
 
         # combine & copy out the results
-        docker-compose start web_kiwitcms_org
         docker exec -i web_kiwitcms_org /bin/bash -c "cd /coverage; coverage combine"
         docker cp web_kiwitcms_org:/coverage/.coverage .coverage.container
 

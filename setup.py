@@ -9,7 +9,7 @@ def get_long_description():
 
 setup(
     name="social-auth-kerberos",
-    version="0.2.4",
+    version="0.3.0",
     description="Kerberos authentication backend for Python Social Auth",
     long_description=get_long_description(),
     author="Kiwi TCMS",

@@ -97,6 +97,16 @@ or check out ``tests/Dockerfile.kerberos``.
 Changelog
 ---------
 
+v0.3.0 (17 Dec 2023)
+~~~~~~~~~~~~~~~~~~~~
+
+- Update gssapi from 1.6.12 to 1.8.3
+- Update social-auth-core from 4.0.1 to 4.5.1
+- Document the need to compile ``gssapi``. Fixes
+  `Issue #3 <https://github.com/kiwitcms/python-social-auth-kerberos/issues/3>`_
+- Build and test with Python 3.11, Kiwi TCMS v12.7
+- Remove unused import
+
 
 v0.2.4 (24 Mar 2020)
 ~~~~~~~~~~~~~~~~~~~~

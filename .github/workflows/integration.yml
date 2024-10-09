@@ -67,7 +67,7 @@ jobs:
     - name: Save docker logs
       if: always()
       run: |
-        docker-compose logs > docker-compose.log
+        docker compose logs > docker-compose.log
 
     - name: Upload logs
       uses: actions/upload-artifact@v4

@@ -5,7 +5,7 @@ build-services:
 
 .PHONY: run-services
 run-services:
-	docker-compose up -d
+	docker compose up -d
 	docker cp krb5_kiwitcms_org:/tmp/application.keytab .
 	docker cp ./application.keytab web_kiwitcms_org:/Kiwi/application.keytab
 	rm ./application.keytab

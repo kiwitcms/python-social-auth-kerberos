@@ -97,6 +97,15 @@ or check out ``tests/Dockerfile.kerberos``.
 Changelog
 ---------
 
+v0.3.1 (17 Apr 2026)
+~~~~~~~~~~~~~~~~~~~~
+
+- Update GitHub actions
+- Update black from 24.3.0 to 26.3.1
+- Update social-auth-core to 4.8.5
+- Update gssapi to 1.11.1
+
+
 v0.3.0 (17 Dec 2023)
 ~~~~~~~~~~~~~~~~~~~~
 

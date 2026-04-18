@@ -8,6 +8,12 @@ on:
     branches:
       - master
 
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+permissions: read-all
+
 jobs:
   build-package:
     runs-on: ubuntu-latest

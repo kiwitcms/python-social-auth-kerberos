@@ -35,3 +35,16 @@ verify-web-login: verify-curl-with-kerberos
 
 	# verify username is 'travis', e.g. taken from 'travis@KIWITCMS.ORG' principal
 	cat /tmp/curl.log | grep '/plan/search/?author=travis'
+
+.PHONY: package
+package:
+	rm -rf build/ dist/ *.egg-info/
+	python setup.py sdist
+	python setup.py bdist_wheel
+	twine check dist/*
+
+.PHONY: upload
+upload: package
+	test -n "$(TWINE_USERNAME)" || exit 1
+	test -n "$(TWINE_PASSWORD)" || exit 2
+	twine upload dist/* --repository-url https://push.fury.io/kiwitcms

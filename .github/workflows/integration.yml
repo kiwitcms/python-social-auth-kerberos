@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.11]
+        python-version: [3.12]
 
     steps:
       - uses: actions/checkout@v6
@@ -44,7 +44,7 @@ jobs:
         # note: always use the -latest OS variants b/c if conditions
         # match them as literals
         os: [ubuntu-latest]
-        python-version: [3.11]
+        python-version: [3.12]
 
     steps:
 

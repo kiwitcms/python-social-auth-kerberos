@@ -1,4 +1,4 @@
-FROM pub.kiwitcms.eu/kiwitcms/kiwi
+FROM kiwitcms/kiwi
 
 USER 0
 RUN microdnf -y --nodocs install gcc krb5-devel python3.11-devel psmisc && \

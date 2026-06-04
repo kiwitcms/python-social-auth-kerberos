@@ -97,6 +97,14 @@ or check out ``tests/Dockerfile.kerberos``.
 Changelog
 ---------
 
+v0.3.2 (05 Jun 2026)
+~~~~~~~~~~~~~~~~~~~~
+
+- Update social-auth-core from 4.8.5 to 4.9.1
+- Update pre-commit.ci config
+- Build and test with Python 3.12
+
+
 v0.3.1 (17 Apr 2026)
 ~~~~~~~~~~~~~~~~~~~~
 

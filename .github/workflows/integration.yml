@@ -16,10 +16,10 @@ permissions: read-all
 
 jobs:
   build-package:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
-        python-version: [3.12]
+        python-version: [3.14]
 
     steps:
       - uses: actions/checkout@v6
@@ -41,10 +41,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # note: always use the -latest OS variants b/c if conditions
-        # match them as literals
-        os: [ubuntu-latest]
-        python-version: [3.12]
+        # note: keep OS values in sync with the if conditions below
+        os: [ubuntu-26.04]
+        python-version: [3.14]
 
     steps:
 
@@ -66,7 +65,7 @@ jobs:
         make run-services
 
     - name: Install & configure Kerberos client
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'ubuntu-26.04'
       run: |
         KRB5_ADDR=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' krb5_kiwitcms_org`
 

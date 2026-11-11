@@ -1,4 +1,4 @@
-FROM kiwitcms/kiwi
+FROM kiwitcms/kiwitcms
 
 USER 0
 RUN dnf -y --nodocs install gcc krb5-devel python3.12-devel psmisc && \

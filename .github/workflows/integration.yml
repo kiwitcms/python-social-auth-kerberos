@@ -124,4 +124,4 @@ jobs:
         sed -i "s/data_file.*//" .coveragerc
         coverage combine
 
-        COVERALLS_REPO_TOKEN=Oc0oWQC2KKHUbvZD6Ui7W2Ury7LsYu4ho coveralls
+        coveralls
